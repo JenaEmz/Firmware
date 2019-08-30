@@ -1,0 +1,8 @@
+Symlinking /home/jena/px4/Firmware/devel/./env.sh
+Symlinking /home/jena/px4/Firmware/devel/./setup.sh
+Symlinking /home/jena/px4/Firmware/devel/./setup.bash
+Symlinking /home/jena/px4/Firmware/devel/./setup.zsh
+Symlinking /home/jena/px4/Firmware/devel/./_setup_util.py
+Symlinking /home/jena/px4/Firmware/devel/lib/pkgconfig/catkin_tools_prebuild.pc
+Symlinking /home/jena/px4/Firmware/devel/share/catkin_tools_prebuild/cmake/catkin_tools_prebuildConfig-version.cmake
+Symlinking /home/jena/px4/Firmware/devel/share/catkin_tools_prebuild/cmake/catkin_tools_prebuildConfig.cmake

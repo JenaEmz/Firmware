@@ -43,7 +43,6 @@
  */
 
 #include "Commander.hpp"
-
 /* commander module headers */
 #include "accelerometer_calibration.h"
 #include "airspeed_calibration.h"
@@ -118,7 +117,7 @@ static constexpr uint64_t COMMANDER_MONITORING_INTERVAL = 10_ms;
 
 static constexpr float STICK_ON_OFF_LIMIT = 0.9f;
 
-static constexpr uint64_t OFFBOARD_TIMEOUT = 500_ms;
+static constexpr uint64_t OFFBOARD_TIMEOUT = 500_ms*10;
 static constexpr uint64_t HOTPLUG_SENS_TIMEOUT = 8_s;	/**< wait for hotplug sensors to come online for upto 8 seconds */
 static constexpr uint64_t PRINT_MODE_REJECT_INTERVAL = 500_ms;
 static constexpr uint64_t INAIR_RESTART_HOLDOFF_INTERVAL = 500_ms;
@@ -1382,7 +1381,6 @@ Commander::run()
 	preflight_check(false);
 
 	while (!should_exit()) {
-
 		transition_result_t arming_ret = TRANSITION_NOT_CHANGED;
 
 		/* update parameters */
@@ -1430,7 +1428,6 @@ Commander::run()
 
 				status_changed = true;
 			}
-
 			/* Safety parameters */
 			param_get(_param_rc_in_off, &rc_in_off);
 			status.rc_input_mode = rc_in_off;
@@ -4145,8 +4142,8 @@ void Commander::estimator_check(bool *status_changed)
 				const bool sufficient_time = (hrt_elapsed_time(&_time_at_takeoff) > 30_s);
 				const bool sufficient_speed = (lpos.vx * lpos.vx + lpos.vy * lpos.vy > 25.0f);
 
-				bool innovation_pass = estimator_status.vel_test_ratio < 1.0f && estimator_status.pos_test_ratio < 1.0f;
-
+				//bool innovation_pass = estimator_status.vel_test_ratio < 1.0f && estimator_status.pos_test_ratio < 1.0f;
+bool innovation_pass = true;
 				if (!_nav_test_failed) {
 					if (!_nav_test_passed) {
 						// pass if sufficient time or speed
@@ -4161,8 +4158,8 @@ void Commander::estimator_check(bool *status_changed)
 
 						// if the innovation test has failed continuously, declare the nav as failed
 						if (hrt_elapsed_time(&_time_last_innov_pass) > 1_s) {
-							_nav_test_failed = true;
-							mavlink_log_emergency(&mavlink_log_pub, "Critical navigation failure - check sensor calibration");
+							//_nav_test_failed = true;
+							//mavlink_log_emergency(&mavlink_log_pub, "Critical navigation failure - check sensor calibration");
 						}
 					}
 				}

@@ -1,0 +1,86 @@
+
+
+1. 建立模型文件夹及子文件夹
+
+mkdir ~/.gazebo/models/my_ground_plane
+
+mkdir -p ~/.gazebo/models/my_ground_plane/materials/textures 
+
+mkdir -p ~/.gazebo/models/my_ground_plane/materials/scripts
+
+2. 在scripts文件夹下创建文件my_ground_plane.material ，文件内容如下：
+
+    material MyGroundPlane/Image
+            {
+              technique
+              {
+                pass
+                {
+                  ambient 1 1 1 1.000000
+                  diffuse 1 1 1 1.000000
+                  specular 0.03 0.03 0.03 1.000000 
+     
+                  texture_unit
+                  {
+                    texture MyImage.png
+                  }
+                }
+              }
+            }
+
+3. 在textures文件夹下放想要贴的纹理图片，这里取名为MyImage.png
+
+4. 回到my_ground_plane文件夹下，创建文件model.sdf，内容为：
+
+    <?xml version="1.0" encoding="UTF-8"?>
+    <sdf version="1.4">
+       <model name="my_ground_plane">
+          <static>true</static>
+          <link name="link">
+             <collision name="collision">
+                <geometry>
+                   <plane>
+                      <normal>0 0 1</normal>
+                      <size>100 100</size>
+                   </plane>
+                </geometry>
+                <surface>
+                   <friction>
+                      <ode>
+                         <mu>100</mu>
+                         <mu2>50</mu2>
+                      </ode>
+                   </friction>
+                </surface>
+             </collision>
+             <visual name="visual">
+                <cast_shadows>false</cast_shadows>
+                <geometry>
+                   <plane>
+                      <normal>0 0 1</normal>
+                      <size>100 100</size>
+                   </plane>
+                </geometry>
+                <material>
+                   <script>
+                      <uri>model://my_ground_plane/materials/scripts</uri>
+                      <uri>model://my_ground_plane/materials/textures/</uri>
+                      <name>MyGroundPlane/Image</name>
+                   </script>
+                </material>
+             </visual>
+          </link>
+       </model>
+    </sdf>
+
+5. 在my_ground_plane文件夹下，创建文件model.config，内容如下：
+
+    <?xml version="1.0" encoding="UTF-8"?>
+    <model>
+       <name>My Ground Plane</name>
+       <version>1.0</version>
+       <sdf version="1.4">model.sdf</sdf>
+       <description>My textured ground plane.</description>
+    </model>
+
+至此，模型建立完毕。打开gazebo，在左侧insert中查找对应的模型插入即可

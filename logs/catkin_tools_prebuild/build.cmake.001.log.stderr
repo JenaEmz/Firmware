@@ -1,0 +1,13 @@
+[31m[1mCMake Error[0m at /opt/ros/kinetic/share/catkin/cmake/assert.cmake:17 (message):
+
+
+  Assertion failed: check for file existence, but filename
+  (RT_LIBRARY-NOTFOUND) unset.  Message: RT Library
+
+[36mCall Stack (most recent call first):[0m
+  /opt/ros/kinetic/share/catkin/cmake/tools/rt.cmake:42 (assert_file_exists)
+  /opt/ros/kinetic/share/catkin/cmake/all.cmake:159 (include)
+  /opt/ros/kinetic/share/catkin/cmake/catkinConfig.cmake:20 (include)
+  CMakeLists.txt:4 (find_package)
+
+

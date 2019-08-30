@@ -585,7 +585,7 @@ MavlinkReceiver::handle_message_optical_flow_rad(mavlink_message_t *msg)
 	/* optical flow */
 	mavlink_optical_flow_rad_t flow;
 	mavlink_msg_optical_flow_rad_decode(msg, &flow);
-
+	PX4_WARN("rec\n");
 	/* read flow sensor parameters */
 	int32_t flow_rot_int;
 	param_get(_p_flow_rot, &flow_rot_int);
@@ -1101,6 +1101,7 @@ MavlinkReceiver::handle_message_gps_global_origin(mavlink_message_t *msg)
 	}
 }
 
+
 void
 MavlinkReceiver::handle_message_vision_position_estimate(mavlink_message_t *msg)
 {
@@ -1108,7 +1109,7 @@ MavlinkReceiver::handle_message_vision_position_estimate(mavlink_message_t *msg)
 	mavlink_msg_vision_position_estimate_decode(msg, &ev);
 
 	struct vehicle_odometry_s visual_odom = {};
-
+	
 	visual_odom.timestamp = _mavlink_timesync.sync_stamp(ev.usec);
 	visual_odom.x = ev.x;
 	visual_odom.y = ev.y;
@@ -2100,7 +2101,6 @@ MavlinkReceiver::handle_message_hil_gps(mavlink_message_t *msg)
 	uint64_t timestamp = hrt_absolute_time();
 
 	struct vehicle_gps_position_s hil_gps = {};
-
 	hil_gps.timestamp_time_relative = 0;
 	hil_gps.time_utc_usec = gps.time_usec;
 

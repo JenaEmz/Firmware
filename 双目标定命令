@@ -1,0 +1,2 @@
+rosrun camera_calibration cameracalibrator.py --size 6x5 --square 0.1 --no-service-check right:=/uav0/stereo/right/image_raw left:=/uav0/stereo/left/image_raw right_camera:=/uav0/stereo/right left_camera:=/uav0/stereo/left
+

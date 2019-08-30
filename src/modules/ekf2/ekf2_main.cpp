@@ -770,7 +770,6 @@ void Ekf2::run()
 			orb_copy(ORB_ID(parameter_update), _params_sub, &update);
 			updateParams();
 		}
-
 		orb_copy(ORB_ID(sensor_combined), _sensors_sub, &sensors);
 
 		// ekf2_timestamps (using 0.1 ms relative timestamps)
@@ -991,8 +990,8 @@ void Ekf2::run()
 
 		if (gps1_updated) {
 			vehicle_gps_position_s gps;
-
 			if (orb_copy(ORB_ID(vehicle_gps_position), _gps_subs[0], &gps) == PX4_OK) {
+
 				_gps_state[0].time_usec = gps.timestamp;
 				_gps_state[0].lat = gps.lat;
 				_gps_state[0].lon = gps.lon;
@@ -1008,7 +1007,7 @@ void Ekf2::run()
 				_gps_state[0].vel_ned[1] = gps.vel_e_m_s;
 				_gps_state[0].vel_ned[2] = gps.vel_d_m_s;
 				_gps_state[0].vel_ned_valid = gps.vel_ned_valid;
-				_gps_state[0].nsats = gps.satellites_used;
+				_gps_state[0].nsats = 20;//gps.satellites_used;
 				//TODO: add gdop to gps topic
 				_gps_state[0].gdop = 0.0f;
 				_gps_alttitude_ellipsoid[0] = gps.alt_ellipsoid;
@@ -1023,7 +1022,7 @@ void Ekf2::run()
 
 		if (gps2_updated) {
 			vehicle_gps_position_s gps;
-
+			
 			if (orb_copy(ORB_ID(vehicle_gps_position), _gps_subs[1], &gps) == PX4_OK) {
 				_gps_state[1].time_usec = gps.timestamp;
 				_gps_state[1].lat = gps.lat;
@@ -1219,7 +1218,7 @@ void Ekf2::run()
 			// copy both attitude & position, we need both to fill a single ext_vision_message
 			vehicle_odometry_s ev_odom;
 			orb_copy(ORB_ID(vehicle_visual_odometry), _ev_odom_sub, &ev_odom);
-
+			
 			ext_vision_message ev_data;
 
 			// check for valid position data

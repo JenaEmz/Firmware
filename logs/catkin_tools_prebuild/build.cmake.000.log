@@ -1,0 +1,39 @@
+Not searching for unused variables given on the command line.
+[36m--[0m Using CATKIN_DEVEL_PREFIX: /home/jena/px4/Firmware/devel/.private/catkin_tools_prebuild
+[36m--[0m Using CMAKE_PREFIX_PATH: /opt/ros/kinetic
+[36m--[0m This workspace overlays: /opt/ros/kinetic
+[36m--[0m Found PythonInterp: /usr/bin/python (found version "2.7.12")
+[36m--[0m Using PYTHON_EXECUTABLE: /usr/bin/python
+[36m--[0m Using Debian Python package layout
+[36m--[0m Using empy: /usr/bin/empy
+[36m--[0m Using CATKIN_ENABLE_TESTING: ON
+[36m--[0m Call enable_testing()
+[36m--[0m Using CATKIN_TEST_RESULTS_DIR: /home/jena/px4/Firmware/build/catkin_tools_prebuild/test_results
+[36m--[0m Found gmock sources under '/usr/src/gmock': gmock will be built
+[36m--[0m Looking for pthread.h
+[36m--[0m Looking for pthread.h - found
+[36m--[0m Looking for pthread_create
+[36m--[0m Looking for pthread_create - not found
+[36m--[0m Looking for pthread_create in pthreads
+[36m--[0m Looking for pthread_create in pthreads - not found
+[36m--[0m Looking for pthread_create in pthread
+[36m--[0m Looking for pthread_create in pthread - found
+[36m--[0m Found Threads: TRUE
+[36m--[0m Found gtest sources under '/usr/src/gmock': gtests will be built
+[36m--[0m Using Python nosetests: /usr/bin/nosetests-2.7
+[31m[1mCMake Error[0m at /opt/ros/kinetic/share/catkin/cmake/assert.cmake:17 (message):
+
+
+  Assertion failed: check for file existence, but filename
+  (RT_LIBRARY-NOTFOUND) unset.  Message: RT Library
+
+[36mCall Stack (most recent call first):[0m
+  /opt/ros/kinetic/share/catkin/cmake/tools/rt.cmake:42 (assert_file_exists)
+  /opt/ros/kinetic/share/catkin/cmake/all.cmake:159 (include)
+  /opt/ros/kinetic/share/catkin/cmake/catkinConfig.cmake:20 (include)
+  CMakeLists.txt:4 (find_package)
+
+
+[36m--[0m Configuring incomplete, errors occurred!
+See also "/home/jena/px4/Firmware/build/catkin_tools_prebuild/CMakeFiles/CMakeOutput.log".
+See also "/home/jena/px4/Firmware/build/catkin_tools_prebuild/CMakeFiles/CMakeError.log".

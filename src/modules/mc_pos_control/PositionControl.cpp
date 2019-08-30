@@ -124,7 +124,7 @@ bool PositionControl::_interfaceMapping()
 
 		if (PX4_ISFINITE(_pos_sp(i))) {
 			// Position control is required
-
+			
 			if (!PX4_ISFINITE(_vel_sp(i))) {
 				// Velocity is not used as feedforward term.
 				_vel_sp(i) = 0.0f;
@@ -136,7 +136,9 @@ bool PositionControl::_interfaceMapping()
 			// to run position control, we require valid position and velocity
 			if (!PX4_ISFINITE(_pos(i)) || !PX4_ISFINITE(_vel(i))) {
 				failsafe = true;
+				PX4_WARN("no pos_sp\n");
 			}
+		
 
 		} else if (PX4_ISFINITE(_vel_sp(i))) {
 
@@ -151,6 +153,8 @@ bool PositionControl::_interfaceMapping()
 			// to run velocity control, we require valid velocity
 			if (!PX4_ISFINITE(_vel(i))) {
 				failsafe = true;
+				
+			//PX4_WARN("no vel_sp\n");
 			}
 
 		} else if (PX4_ISFINITE(_thr_sp(i))) {
@@ -168,6 +172,7 @@ bool PositionControl::_interfaceMapping()
 
 		} else {
 			// nothing is valid. do failsafe
+			PX4_WARN("nothing\n");
 			failsafe = true;
 		}
 	}
@@ -175,9 +180,12 @@ bool PositionControl::_interfaceMapping()
 	// ensure that vel_dot is finite, otherwise set to 0
 	if (!PX4_ISFINITE(_vel_dot(0)) || !PX4_ISFINITE(_vel_dot(1))) {
 		_vel_dot(0) = _vel_dot(1) = 0.0f;
+		//PX4_WARN("no vel_dot\n");
+
 	}
 
 	if (!PX4_ISFINITE(_vel_dot(2))) {
+		PX4_WARN("no vel_dot2\n");
 		_vel_dot(2) = 0.0f;
 	}
 
@@ -194,12 +202,15 @@ bool PositionControl::_interfaceMapping()
 			_yaw_sp = _yaw;
 
 		} else {
+
+		PX4_WARN("no yaw\n");
 			failsafe = true;
 		}
 	}
 
 	// check failsafe
 	if (failsafe) {
+		//PX4_WARN("wtf\n");
 		// point the thrust upwards
 		_thr_sp(0) = _thr_sp(1) = 0.0f;
 		// throttle down such that vehicle goes down with
